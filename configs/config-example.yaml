@@ -1,0 +1,15 @@
+server:
+  ip: "127.0.0.1"
+  port: ":8080"
+
+database:
+  host: "localhost"
+  port: 5432
+  user: "postgres"
+  password: "12345"
+  dbname: "homeapp"
+  sslmode: "disable"
+
+# full path to folder where you want to storage your files
+uploads:
+  path: "B://uploads/"
