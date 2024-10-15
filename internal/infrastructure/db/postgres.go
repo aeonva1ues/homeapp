@@ -23,7 +23,7 @@ func NewPostgresDB(cfg *infrastructure.Config) (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	if err := db.AutoMigrate(&entity.File{}); err != nil {
+	if err := db.AutoMigrate(&entity.File{}, &entity.Category{}); err != nil {
 		return nil, err
 	}
 	return db, nil

@@ -14,14 +14,14 @@ import (
 type FileLoaderHandler struct {
 	fileLoaderUseCase usecase.FileLoaderUseCase
 	log               *logrus.Logger
-	dst				  string
+	dst               string
 }
 
 func NewFileLoaderHandler(router *gin.Engine, usecase usecase.FileLoaderUseCase, log *logrus.Logger, dst string) {
 	handler := &FileLoaderHandler{
 		fileLoaderUseCase: usecase,
 		log:               log,
-		dst:			   dst,
+		dst:               dst,
 	}
 	fileLoaderRoutes := router.Group("/file")
 	{
@@ -46,7 +46,7 @@ func (h *FileLoaderHandler) UploadFile(c *gin.Context) {
 	for _, file := range files {
 		h.log.Info("got file " + file.Filename)
 		w.Add(1)
-		go fileloader.LoadFile(c, file, h.dst + file.Filename, uploadedFiles, &w)
+		go fileloader.LoadFile(c, file, h.dst+file.Filename, uploadedFiles, &w)
 	}
 	go func() {
 		w.Wait()

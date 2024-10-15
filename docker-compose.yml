@@ -1,0 +1,33 @@
+services:
+  go-app:
+    container_name: app
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - internal
+
+  db:
+    container_name: db
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_USER: postgres
+      POSTGRES_DB: homeapp
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - internal
+
+volumes:
+  pgdata: { }
+
+networks:
+  internal:
+    driver: bridge

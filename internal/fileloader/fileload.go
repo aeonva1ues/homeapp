@@ -14,6 +14,7 @@ func LoadFile(ctx *gin.Context, file *multipart.FileHeader, dst string, c chan *
 	filename, filepath := file.Filename, dst + file.Filename
 	c <- &entity.File{
 		Name: filename,
+		CategoryID: 1,
 		Path: filepath,
 		SizeMB: float64(file.Size) / 1024,
 		UploadedAt: time.Now(),

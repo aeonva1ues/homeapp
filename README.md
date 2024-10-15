@@ -1,5 +1,5 @@
 ## Homeapp: app for my localhost
-###### Idea: sometimes my family needs to collect some files in one place, but always connect phones to pc for sharing data isn't good, it waste a lot of time. This simple API and file-filtering script is a simple and good solution for us.
+###### Idea: sometimes my family needs to collect some files in one place, but always connect phones to pc for sharing data isn't comfortable, it waste a lot of time. This simple API is a simple and good solution for us.
 ___
 #### Try to add some files by curl
 ```

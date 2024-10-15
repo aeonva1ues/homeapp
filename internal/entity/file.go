@@ -5,10 +5,15 @@ import (
 )
 
 type File struct {
-	ID 		   uint      `gorm:"primary_key";"AUTO_INCREMENT" json:"id"`
+	ID         uint      `gorm:"primary_key";"AUTO_INCREMENT" json:"id"`
 	Name       string    `gorm:"not null" json:"name"`
+	CategoryID uint      `gorm:"not null" json:"-"`
 	Path       string    `gorm:"not null" json:"path"`
-	SizeMB     float64     `gorm:"not null" json:"size_mb"`
+	SizeMB     float64   `gorm:"not null" json:"size_mb"`
 	UploadedAt time.Time `gorm:"not null" json:"uploaded_at"`
 	Removed    bool      `gorm:"default:false" json:"removed"`
+}
+
+func (f File) TableName() string {
+	return "file"
 }

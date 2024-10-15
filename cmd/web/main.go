@@ -32,7 +32,10 @@ func main() {
 
 	http.NewFileLoaderHandler(router, fileLoaderUseCase, log, cfg.Uploads.Path)
 
-	if err := router.Run(cfg.Server.IP + cfg.Server.Port); err != nil {
+	// if err := router.Run(cfg.Server.IP + cfg.Server.Port); err != nil {
+	// 	log.Fatalf("Ошибка запуска сервера: %v", err)
+	// }
+	if err := router.Run(":8080"); err != nil {
 		log.Fatalf("Ошибка запуска сервера: %v", err)
 	}
 }

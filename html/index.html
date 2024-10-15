@@ -29,10 +29,11 @@
         <div class="card container my-5 py-5">
         <div class="row h-100 justify-content-center align-items-center">
             <h3 class="text-center fw-bold">Домашнее облако</h1>
-            <div>
+            <form id="mulitple_files_upload">
                 <label for="formFileMultiple" class="form-label fw-bold">Загрузка файлов в домашнее облако</label>
-                <input class="form-control form-control-lg" type="file" id="mulitple_files_upload" multiple>
-            </div>
+                <input class="form-control form-control-lg" type="file" id="file_input" multiple>
+                <button id="send_btn" type="button" class="btn btn-success btn-lg my-3 disabled">Загрузить</button>
+            </form>
         </div>
     </div>
     <hr>
@@ -44,15 +45,18 @@
     <script>
         var SERVER_ENDPOINT = window.location.origin;
         var FILE_LOADER_SPINNER = document.getElementById("fload_spinner")
-        document
-        .getElementById("mulitple_files_upload")
-        .addEventListener("change", async (event) => {
+        var FILE_INPUT = document.getElementById("file_input")
+        var SEND_BTN = document.getElementById("send_btn")
+        FILE_INPUT.addEventListener("change", (e) => {
+          SEND_BTN.classList.remove("disabled")
+        })
+        SEND_BTN.addEventListener("click", async () => {
           try {
-            let formData = new FormData();
-            for (let key in event.target.files) {
-              formData.append("files", event.target.files[key]);
+            let formData = new FormData(document.getElementById("mulitple_files_upload"));
+            for (let key in FILE_INPUT.files) {
+              formData.append("files", FILE_INPUT.files[key]);
             }
-            FILE_LOADER_SPINNER.classList.remove("visually-hidden")
+            FILE_LOADER_SPINNER.classList.remove("visually-hidden");
             const data = await fetch(`${SERVER_ENDPOINT}/file/uploads`, {
               body: formData,
               method: "POST"
@@ -60,8 +64,9 @@
           } catch (error) {
             alert(error.message);
           }
-          FILE_LOADER_SPINNER.classList.add("visually-hidden")
-
+          FILE_LOADER_SPINNER.classList.add("visually-hidden");
+          FILE_INPUT.value = null;
+          SEND_BTN.classList.add("disabled")
         var toastElList = [].slice.call(document.querySelectorAll('.toast'))
         var toastList = toastElList.map(function(toastEl) {
             return new bootstrap.Toast(toastEl)
