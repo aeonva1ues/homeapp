@@ -7,27 +7,30 @@ services:
     depends_on:
       - db
     restart: unless-stopped
-    networks:
-      - internal
+    environment:
+      HOST: ${HOST}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      SSL_MODE: ${SSL_MODE}
+      UPLOADS: ${UPLOADS}
+    volumes:
+      - 'b:/uploads:/uploads:rw'
 
   db:
     container_name: db
     image: postgres:15
     environment:
-      POSTGRES_PASSWORD: 12345
-      POSTGRES_USER: postgres
-      POSTGRES_DB: homeapp
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_DB: ${DATABASE_NAME}
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: always
-    networks:
-      - internal
 
 volumes:
   pgdata: { }
-
-networks:
-  internal:
-    driver: bridge
