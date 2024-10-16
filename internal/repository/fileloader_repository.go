@@ -8,7 +8,7 @@ import (
 )
 
 type FileLoaderRepository interface {
-	UploadFile(ctx context.Context, file *entity.File) error
+	UploadFiles(ctx context.Context, file *[]entity.File) error
 }
 
 type fileLoaderRepository struct {
@@ -19,6 +19,9 @@ func NewFileLoaderRepository(db *gorm.DB) FileLoaderRepository {
 	return &fileLoaderRepository{db}
 }
 
-func (f *fileLoaderRepository) UploadFile(ctx context.Context, file *entity.File) error {
-	return f.db.WithContext(ctx).Create(file).Error
+func (f *fileLoaderRepository) UploadFiles(ctx context.Context, files *[]entity.File) error {
+	if len(*files) == 0 {
+		return ErrNoContent
+	}
+	return f.db.WithContext(ctx).Create(files).Error
 }

@@ -25,17 +25,14 @@ func main() {
 
 	fileLoaderRepository := repository.NewFileLoaderRepository(db)
 
-	fileLoaderUseCase := usecase.NewFileLoaderUseCase(fileLoaderRepository)
+	fileLoaderUseCase := usecase.NewFileLoaderUseCase(fileLoaderRepository, cfg.Uploads.Path)
 
 	router := gin.Default()
 	router.LoadHTMLGlob("html/*")
 
-	http.NewFileLoaderHandler(router, fileLoaderUseCase, log, cfg.Uploads.Path)
+	http.NewFileLoaderHandler(router, fileLoaderUseCase, log)
 
-	// if err := router.Run(cfg.Server.IP + cfg.Server.Port); err != nil {
-	// 	log.Fatalf("Ошибка запуска сервера: %v", err)
-	// }
-	if err := router.Run(":8080"); err != nil {
+	if err := router.Run(cfg.Server.IP + cfg.Server.Port); err != nil {
 		log.Fatalf("Ошибка запуска сервера: %v", err)
 	}
 }
