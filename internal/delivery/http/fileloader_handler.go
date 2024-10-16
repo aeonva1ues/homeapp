@@ -34,7 +34,7 @@ func (h *FileLoaderHandler) UploadFiles(c *gin.Context) {
 	files := form.File["files"]
 
 	if err := h.fileLoaderUseCase.UploadFiles(c, &files); err != nil {
-		h.log.Fatalf("error during loading files x%d - %s", len(files), err)
+		h.log.Errorf("error during loading files x%d - %s", len(files), err)
 		c.Status(http.StatusNotAcceptable)
 		return
 	}
