@@ -43,7 +43,7 @@
     </div>
     <!-- <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script> -->
     <script>
-        var SERVER_ENDPOINT = window.location.origin;
+        var HOST = window.location.origin;
         var FILE_LOADER_SPINNER = document.getElementById("fload_spinner")
         var FILE_INPUT = document.getElementById("file_input")
         var SEND_BTN = document.getElementById("send_btn")
@@ -57,7 +57,7 @@
               formData.append("files", FILE_INPUT.files[key]);
             }
             FILE_LOADER_SPINNER.classList.remove("visually-hidden");
-            const data = await fetch(`${SERVER_ENDPOINT}/file/uploads`, {
+            const data = await fetch(`${HOST}/file/uploads`, {
               body: formData,
               method: "POST"
             });
