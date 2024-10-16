@@ -11,12 +11,12 @@ import (
 
 func LoadFile(ctx *gin.Context, file *multipart.FileHeader, dst string, c chan *entity.File, w *sync.WaitGroup) {
 	ctx.SaveUploadedFile(file, dst)
-	filename, filepath := file.Filename, dst + file.Filename
+	filename, filepath := file.Filename, dst+file.Filename
 	c <- &entity.File{
-		Name: filename,
+		Name:       filename,
 		CategoryID: 1,
-		Path: filepath,
-		SizeMB: float64(file.Size) / 1024,
+		Path:       filepath,
+		SizeMB:     float64(file.Size) / 1024,
 		UploadedAt: time.Now(),
 	}
 	w.Done()

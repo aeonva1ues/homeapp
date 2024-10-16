@@ -13,29 +13,26 @@ import (
 func main() {
 	log := logger.NewLogger()
 
-	cfg, err := infrastructure.LoadConfig()
+	cfg, err := infrastructure.LoadEnvConfig()
 	if err != nil {
 		log.Fatalf("Ошибка загрузки конфигурации: %v", err)
 	}
 
-	db, err := db.NewPostgresDB(cfg)
+	db, err := db.NewPostgresDB(cfg.GetDatabase())
 	if err != nil {
 		log.Fatalf("Ошибка подключения к базе данных: %v", err)
 	}
 
 	fileLoaderRepository := repository.NewFileLoaderRepository(db)
 
-	fileLoaderUseCase := usecase.NewFileLoaderUseCase(fileLoaderRepository)
+	fileLoaderUseCase := usecase.NewFileLoaderUseCase(fileLoaderRepository, cfg.GetUploadsDir())
 
 	router := gin.Default()
 	router.LoadHTMLGlob("html/*")
 
-	http.NewFileLoaderHandler(router, fileLoaderUseCase, log, cfg.Uploads.Path)
+	http.NewFileLoaderHandler(router, fileLoaderUseCase, log)
 
-	// if err := router.Run(cfg.Server.IP + cfg.Server.Port); err != nil {
-	// 	log.Fatalf("Ошибка запуска сервера: %v", err)
-	// }
-	if err := router.Run(":8080"); err != nil {
+	if err := router.Run(cfg.GetServerHost()); err != nil {
 		log.Fatalf("Ошибка запуска сервера: %v", err)
 	}
 }

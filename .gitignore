@@ -29,3 +29,5 @@ go.work.sum
 
 # logs will autocreate
 *.log
+
+.vscode

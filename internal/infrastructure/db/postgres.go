@@ -9,15 +9,15 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewPostgresDB(cfg *infrastructure.Config) (*gorm.DB, error) {
+func NewPostgresDB(cfg *infrastructure.Database) (*gorm.DB, error) {
 	dsn := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
-		cfg.Database.Host,
-		cfg.Database.Port,
-		cfg.Database.User,
-		cfg.Database.Password,
-		cfg.Database.DBName,
-		cfg.Database.SSLMode,
+		cfg.Host,
+		cfg.Port,
+		cfg.User,
+		cfg.Password,
+		cfg.DBName,
+		cfg.SSLMode,
 	)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
