@@ -1,6 +1,7 @@
-## Homeapp: app for my localhost
-###### Idea: sometimes my family needs to collect some files in one place, but always connect phones to pc for sharing data isn't comfortable, it waste a lot of time. This simple API is a simple and good solution for us.
+## Homeapp: app for my lan
+###### Idea: sometimes my family needs to collect some files in one place, but always connect phones to pc for sharing data isn't comfortable, it waste a lot of time. This simple API is a fast and good solution for us.
 ___
+![me](https://github.com/aeonva1ues/homeapp/blob/main/preview.png)
 ### Installation
 Clone repository
 ```
@@ -39,4 +40,4 @@ Try to add some files by curl:
 ```
 curl -X POST http://127.0.0.1:8080/file/uploads -F "files=<PATH_TO_FILE>" -F "files=<PATH_TO_FILE>" -H "Content-Type: multipart/form-data"
 ```
-or by form on html page http://127.0.0.1:8080/file/
+or by form on file/ endpoint http://127.0.0.1:8080/file/
