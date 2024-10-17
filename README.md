@@ -1,7 +1,42 @@
 ## Homeapp: app for my localhost
 ###### Idea: sometimes my family needs to collect some files in one place, but always connect phones to pc for sharing data isn't comfortable, it waste a lot of time. This simple API is a simple and good solution for us.
 ___
-#### Try to add some files by curl
+### Installation
+Clone repository
 ```
-curl -X POST http://127.0.0.1:8080/file/uploads -F "files=@/Users/0.mp4" -F "files=@/Users/1.jpg" -F "files=@/Users/2.jpg" -F "files=@/Users/3.jpg" -F "files=@/Users/4.jpg" -F "files=@/Users/5.mp4" -H "Content-Type: multipart/form-data"
+git clone 
 ```
+Create env file
+```
+cp configs/.env.example configs/.env
+```
+Set variables in new .env file
+
+Example:
+```
+HOST=127.0.0.1:8080  # web server's host
+# database data
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER=postgres
+DATABASE_PASSWORD=12345
+DATABASE_NAME=homeapp
+SSL_MODE=disable
+# ===============
+UPLOADS=F://uploads/  # on this path files will be loaded
+```
+### Run web server
+Using make:
+```
+make compose-up
+```
+or using docker-compose:
+```
+docker-compose --env-file ./configs/.env up --build -d && docker-compose logs -f
+```
+### Usage
+Try to add some files by curl:
+```
+curl -X POST http://127.0.0.1:8080/file/uploads -F "files=<PATH_TO_FILE>" -F "files=<PATH_TO_FILE>" -H "Content-Type: multipart/form-data"
+```
+or by form on html page http://127.0.0.1:8080/file/
