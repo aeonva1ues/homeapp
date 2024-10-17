@@ -1,7 +1,8 @@
 ## Homeapp: app for my lan
 ###### Idea: sometimes my family needs to collect some files in one place, but always connect phones to pc for sharing data isn't comfortable, it waste a lot of time. This simple API is a fast and good solution for us.
 ___
-![me](https://github.com/aeonva1ues/homeapp/blob/main/preview.png)
+<p align="center"><img src="https://github.com/aeonva1ues/homeapp/blob/main/preview.png" width="200px" /></p>
+
 ### Installation
 Clone repository
 ```
