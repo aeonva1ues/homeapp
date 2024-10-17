@@ -5,7 +5,7 @@ ___
 ### Installation
 Clone repository
 ```
-git clone 
+git clone https://github.com/aeonva1ues/homeapp.git
 ```
 Create env file
 ```
