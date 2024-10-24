@@ -10,6 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const uploadedFilesVolumePath string = "/uploads/"
+
 func main() {
 	log := logger.NewLogger()
 
@@ -25,7 +27,8 @@ func main() {
 
 	fileLoaderRepository := repository.NewFileLoaderRepository(db)
 
-	fileLoaderUseCase := usecase.NewFileLoaderUseCase(fileLoaderRepository, cfg.GetUploadsDir())
+	
+	fileLoaderUseCase := usecase.NewFileLoaderUseCase(fileLoaderRepository, uploadedFilesVolumePath)
 
 	router := gin.Default()
 	router.LoadHTMLGlob("html/*")
