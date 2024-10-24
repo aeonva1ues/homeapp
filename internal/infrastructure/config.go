@@ -7,7 +7,6 @@ import (
 type Config interface {
 	GetServerHost() string
 	GetDatabase() *Database
-	GetUploadsDir() string
 }
 
 type Server struct {
@@ -23,14 +22,9 @@ type Database struct {
 	SSLMode  string
 }
 
-type Uploads struct {
-	Path string
-}
-
 type YamlConfig struct {
 	Server   Server
 	Database Database
-	Uploads  Uploads
 }
 
 func (y *YamlConfig) GetServerHost() string {
@@ -41,9 +35,6 @@ func (y *YamlConfig) GetDatabase() *Database {
 	return &y.Database
 }
 
-func (y *YamlConfig) GetUploadsDir() string {
-	return y.Uploads.Path
-}
 
 type EnvConfig struct {
 	Host             string `mapstructure:"HOST"`
@@ -53,7 +44,6 @@ type EnvConfig struct {
 	DatabasePassword string `mapstructure:"DATABASE_PASSWORD"`
 	DatabaseName     string `mapstructure:"DATABASE_NAME"`
 	SSLMode          string `mapstructure:"SSL_MODE"`
-	Uploads          string `mapstructure:"UPLOADS"`
 }
 
 func (e *EnvConfig) GetServerHost() string {
@@ -71,14 +61,11 @@ func (e *EnvConfig) GetDatabase() *Database {
 	}
 }
 
-func (e *EnvConfig) GetUploadsDir() string {
-	return e.Uploads
-}
 
 func LoadEnvConfig() (Config, error) {
 	viper.SetConfigName(".env")
 	viper.SetConfigType("env")
-	viper.AddConfigPath("./configs")
+	viper.AddConfigPath(".")
 	viper.AutomaticEnv()
 	if err := viper.ReadInConfig(); err != nil {
 		return nil, err
@@ -91,7 +78,7 @@ func LoadEnvConfig() (Config, error) {
 func LoadYamlConfig() (Config, error) {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("./configs")
+	viper.AddConfigPath(".")
 
 	if err := viper.ReadInConfig(); err != nil {
 		return nil, err

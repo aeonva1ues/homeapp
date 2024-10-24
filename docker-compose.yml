@@ -15,9 +15,8 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
       SSL_MODE: ${SSL_MODE}
-      UPLOADS: ${UPLOADS}
     volumes:
-      - 'b:/uploads:/uploads:rw'
+      - '${UPLOADS_PATH}:/uploads/'
 
   db:
     container_name: db
