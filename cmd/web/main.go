@@ -26,14 +26,16 @@ func main() {
 	}
 
 	fileLoaderRepository := repository.NewFileLoaderRepository(db)
+	categoryRepository := repository.NewCategoryRepository(db)
 
-	
 	fileLoaderUseCase := usecase.NewFileLoaderUseCase(fileLoaderRepository, uploadedFilesVolumePath)
+	categoryUseCase := usecase.NewCategoryUseCase(categoryRepository)
 
 	router := gin.Default()
 	router.LoadHTMLGlob("html/*")
 
 	http.NewFileLoaderHandler(router, fileLoaderUseCase, log)
+	http.NewCategoryHandler(router, categoryUseCase, log)
 
 	if err := router.Run(cfg.GetServerHost()); err != nil {
 		log.Fatalf("Ошибка запуска сервера: %v", err)
